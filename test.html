@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Interactive Kiss Day 💋</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+body{
+    min-height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: linear-gradient(135deg,#ffd6e8,#ffeaf4,#ffd1dc);
+    overflow:hidden;
+    padding:20px;
+}
+
+/* Animated background blobs */
+.blob{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(60px);
+    opacity:0.5;
+    animation:move 12s infinite alternate ease-in-out;
+}
+
+.blob1{
+    width:300px;height:300px;
+    background:#ff9ecf;
+    top:10%;left:5%;
+}
+
+.blob2{
+    width:250px;height:250px;
+    background:#ffc3a0;
+    bottom:10%;right:5%;
+    animation-delay:3s;
+}
+
+@keyframes move{
+    from{ transform:translateY(0px);}
+    to{ transform:translateY(40px);}
+}
+
+/* Glass Card */
+.card{
+    position:relative;
+    background:rgba(255,255,255,0.5);
+    backdrop-filter:blur(20px);
+    padding:40px 30px;
+    border-radius:25px;
+    text-align:center;
+    max-width:400px;
+    width:100%;
+    box-shadow:0 10px 40px rgba(255,105,135,0.3);
+    animation:fadeIn 1.5s ease;
+}
+
+h1{
+    color:#ff4f81;
+    font-size:clamp(1.8rem,4vw,2.5rem);
+    margin-bottom:10px;
+}
+
+p{
+    color:#b85c8a;
+    font-size:1rem;
+    margin-bottom:20px;
+}
+
+/* Input */
+input{
+    padding:10px;
+    width:100%;
+    border:none;
+    border-radius:20px;
+    margin-bottom:15px;
+    text-align:center;
+    outline:none;
+}
+
+/* Button */
+button{
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+    background:linear-gradient(45deg,#ff9a9e,#fad0c4);
+    color:white;
+    font-size:1rem;
+    transition:0.3s;
+}
+
+button:hover{
+    transform:scale(1.07);
+}
+
+.message{
+    margin-top:20px;
+    font-size:1.2rem;
+    color:#ff4f81;
+    display:none;
+}
+
+/* Floating Hearts */
+.heart{
+    position:absolute;
+    font-size:20px;
+    animation:float 5s linear forwards;
+}
+
+@keyframes float{
+    0%{transform:translateY(0);opacity:1;}
+    100%{transform:translateY(-100vh);opacity:0;}
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(10px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+/* Mobile adjustments */
+@media(max-width:480px){
+    .card{
+        padding:30px 20px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+
+<div class="card">
+    <h1>Happy Kiss Day 💋</h1>
+    <p>Enter your love's name 💖</p>
+    <input type="text" id="nameInput" placeholder="Type a name...">
+    <button onclick="showLove()">Send Kiss 💕</button>
+    <div class="message" id="loveMessage"></div>
+</div>
+
+<script>
+function showLove(){
+    const name = document.getElementById("nameInput").value;
+    const message = document.getElementById("loveMessage");
+
+    if(name.trim() === ""){
+        message.innerHTML = "Please enter a name 💗";
+        message.style.display = "block";
+        return;
+    }
+
+    message.innerHTML = "Sending sweet kisses to " + name + " 😘💖";
+    message.style.display = "block";
+
+    for(let i=0;i<20;i++){
+        let heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML="💗";
+        heart.style.left = Math.random()*window.innerWidth + "px";
+        heart.style.bottom="0px";
+        heart.style.fontSize=(15+Math.random()*25)+"px";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>{heart.remove();},5000);
+    }
+}
+</script>
+
+</body>
+</html>
